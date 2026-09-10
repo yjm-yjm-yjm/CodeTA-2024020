@@ -1,0 +1,95 @@
+/* 计算器样式 - 杨一 渐变主题 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.calc-card {
+  width: 330px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4a3f8f;
+  margin-bottom: 14px;
+}
+
+.history-toggle {
+  border: none;
+  background: #eee6ff;
+  color: #6a5acd;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.calc-display {
+  background: #f4f0ff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  text-align: right;
+  margin-bottom: 14px;
+  min-height: 90px;
+}
+
+.calc-expr { color: #9b8fd0; font-size: 14px; min-height: 20px; word-break: break-all; }
+.calc-result { color: #382f6e; font-size: 36px; font-weight: 700; word-break: break-all; }
+
+.calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.key {
+  height: 56px;
+  border: none;
+  border-radius: 14px;
+  font-size: 19px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  background: #efeaff;
+  color: #4a3f8f;
+}
+
+.key:active { transform: scale(0.93); }
+.key-num { background: #f7f4ff; }
+.key-num:active { box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.1); }
+.key-func { background: #e6deff; color: #7a6bc0; }
+.key-op { background: #8b78e6; color: #fff; }
+.key-eq { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.key-zero { grid-column: span 2; }
+
+.calc-history {
+  margin-top: 12px;
+  border-top: 1px dashed #d8cfff;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #6a5acd;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.history-entry { padding: 2px 0; }
+.history-entry .formula { color: #9b8fd0; margin-right: 8px; }
+.history-entry .value { font-weight: 600; }
+
+@media (max-width: 380px) {
+  .calc-card { width: 94vw; }
+}
