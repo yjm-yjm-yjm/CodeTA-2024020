@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计算器 - 杨一</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="calc-card">
+      <div class="calc-header">
+        <span>计算器</span>
+        <button class="history-toggle" id="historyToggle">历史记录</button>
+      </div>
+      <div class="calc-display">
+        <div class="calc-expr" id="calcExpr">&nbsp;</div>
+        <div class="calc-result" id="calcResult">0</div>
+      </div>
+      <div class="calc-keys">
+        <button class="key key-func" data-key="C">C</button>
+        <button class="key key-func" data-key="Backspace">⌫</button>
+        <button class="key key-func" data-key="%">%</button>
+        <button class="key key-op" data-key="/">÷</button>
+        <button class="key key-num" data-key="7">7</button>
+        <button class="key key-num" data-key="8">8</button>
+        <button class="key key-num" data-key="9">9</button>
+        <button class="key key-op" data-key="*">×</button>
+        <button class="key key-num" data-key="4">4</button>
+        <button class="key key-num" data-key="5">5</button>
+        <button class="key key-num" data-key="6">6</button>
+        <button class="key key-op" data-key="-">−</button>
+        <button class="key key-num" data-key="1">1</button>
+        <button class="key key-num" data-key="2">2</button>
+        <button class="key key-num" data-key="3">3</button>
+        <button class="key key-op" data-key="+">+</button>
+        <button class="key key-num key-zero" data-key="0">0</button>
+        <button class="key key-num" data-key=".">.</button>
+        <button class="key key-eq" data-key="Enter">=</button>
+      </div>
+      <div class="calc-history" id="calcHistory"></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
