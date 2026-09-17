@@ -1,0 +1,116 @@
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f6f8;
+  --bg-elevated: #ffffff;
+  --bg-sidebar: #f0f1f3;
+  --bg-hover: #e4e6ea;
+  --bg-active: #dce3f0;
+  --border: #e2e5eb;
+  --text: #1f2329;
+  --text-muted: #8a919f;
+  --accent: #2f6fed;
+  --accent-hover: #3b7cff;
+  --danger: #d94c4c;
+  --danger-soft: #ffecec;
+  --ok: #2f9b6a;
+  --ok-soft: #e8f7ef;
+  --menu-bg: #ffffff;
+  --menu-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+  --composer-bg: #ffffff;
+  --bubble-user: rgba(47, 111, 237, 0.1);
+  --bubble-assistant: #ffffff;
+  --bubble-tool: rgba(180, 140, 40, 0.1);
+  --radius: 12px;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1419;
+  --bg-elevated: #171d25;
+  --bg-sidebar: #121820;
+  --bg-hover: rgba(255, 255, 255, 0.06);
+  --bg-active: rgba(47, 111, 237, 0.14);
+  --border: #273041;
+  --text: #e8eef6;
+  --text-muted: #93a0b4;
+  --accent: #2f6fed;
+  --accent-hover: #3b7cff;
+  --danger: #d94c4c;
+  --danger-soft: rgba(217, 76, 76, 0.12);
+  --ok: #2f9b6a;
+  --ok-soft: rgba(47, 155, 106, 0.14);
+  --menu-bg: #1b2330;
+  --menu-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --composer-bg: #0f1419;
+  --bubble-user: rgba(47, 111, 237, 0.14);
+  --bubble-assistant: rgba(255, 255, 255, 0.03);
+  --bubble-tool: rgba(120, 90, 40, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.primary-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.primary-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.boot-loading,
+.boot-error {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.boot-error h1 {
+  margin: 0 0 8px;
+}

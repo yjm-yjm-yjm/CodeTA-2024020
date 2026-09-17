@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工作日报表</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      min-height: 100vh;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.96);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      padding: 36px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      color: #34495e;
+      margin-bottom: 24px;
+      letter-spacing: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .info-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .info-row label {
+      display: block;
+      font-size: 13px;
+      color: #7f8c8d;
+      margin-bottom: 4px;
+    }
+    .info-row input, .info-row select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+    th, td {
+      border: 1px solid #e0e0e0;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    tr:nth-child(even) td {
+      background: #fafbfc;
+    }
+    td input, td textarea {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      resize: vertical;
+      outline: none;
+    }
+    td textarea { min-height: 60px; }
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary {
+      background: #2980b9;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1f6f9e; }
+    .btn-add {
+      background: #27ae60;
+      color: #fff;
+    }
+    .btn-add:hover { background: #22914f; }
+    .btn-del {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .btn-del:hover { background: #c0392b; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .summary label {
+      display: block;
+      font-size: 13px;
+      color: #7f8c8d;
+      margin-bottom: 4px;
+    }
+    .summary textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      min-height: 60px;
+      resize: vertical;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { box-shadow: none; padding: 16px; }
+      .actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>工作日报表</h1>
+
+    <div class="info-row">
+      <div>
+        <label>日期</label>
+        <input type="date" id="reportDate">
+      </div>
+      <div>
+        <label>姓名</label>
+        <input type="text" placeholder="请输入姓名">
+      </div>
+      <div>
+        <label>部门</label>
+        <input type="text" placeholder="请输入部门">
+      </div>
+      <div>
+        <label>岗位</label>
+        <input type="text" placeholder="请输入岗位">
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:80px">序号</th>
+          <th style="width:120px">时间段</th>
+          <th>工作内容</th>
+          <th style="width:120px">完成情况</th>
+          <th style="width:60px">操作</th>
+        </tr>
+      </thead>
+      <tbody id="taskTable">
+        <tr>
+          <td class="index">1</td>
+          <td><input type="text" placeholder="09:00-10:00"></td>
+          <td><textarea placeholder="填写工作内容"></textarea></td>
+          <td>
+            <select>
+              <option value="已完成">已完成</option>
+              <option value="进行中">进行中</option>
+              <option value="待处理">待处理</option>
+              <option value="已取消">已取消</option>
+            </select>
+          </td>
+          <td><button class="btn-del" onclick="delRow(this)">删除</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="text-align:right;">
+      <button class="btn-add" onclick="addRow()">+ 添加行</button>
+    </div>
+
+    <div class="summary">
+      <div>
+        <label>今日工作总结</label>
+        <textarea placeholder="总结当天完成的工作"></textarea>
+      </div>
+      <div>
+        <label>遇到的问题</label>
+        <textarea placeholder="记录遇到的问题与困难"></textarea>
+      </div>
+      <div>
+        <label>明日工作计划</label>
+        <textarea placeholder="填写明天的计划"></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" onclick="printReport()">打印 / 保存 PDF</button>
+    </div>
+  </div>
+
+  <script>
+    // 默认填上今天日期
+    document.getElementById('reportDate').value = new Date().toISOString().split('T')[0];
+
+    function addRow() {
+      const tbody = document.getElementById('taskTable');
+      const row = document.createElement('tr');
+      const num = tbody.children.length + 1;
+      row.innerHTML =
+        '<td class="index">' + num + '</td>' +
+        '<td><input type="text" placeholder="例如 10:00-11:00"></td>' +
+        '<td><textarea placeholder="填写工作内容"></textarea></td>' +
+        '<td><select>' +
+        '<option value="已完成">已完成</option>' +
+        '<option value="进行中">进行中</option>' +
+        '<option value="待处理">待处理</option>' +
+        '<option value="已取消">已取消</option>' +
+        '</select></td>' +
+        '<td><button class="btn-del" onclick="delRow(this)">删除</button></td>';
+      tbody.appendChild(row);
+    }
+
+    function delRow(btn) {
+      btn.parentNode.parentNode.remove();
+      reindex();
+    }
+
+    function reindex() {
+      const rows = document.querySelectorAll('#taskTable tr');
+      rows.forEach(function(el, i) {
+        el.querySelector('.index').textContent = i + 1;
+      });
+    }
+
+    function printReport() {
+      window.print();
+    }
+  </script>
+</body>
+</html>
